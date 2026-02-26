@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Qualità aria a Sulbiate</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <div class="card">
+        <h1>Qualità dell'aria a Sulbiate</h1>
+        <div>
+            <div class="label">PM 10 [µg/m³]</div>
+            <div class="value" id="p1">--</div>
+        </div>
+        <p></p>
+        <div>
+            <div class="label">PM 2.5 [µg/m³]</div>
+            <div class="value" id="p2">--</div>
+        </div>
+        <div class="timestamp" id="timestamp"></div>
+        <p>
+            Scopri i dati <b><a class="urlclass" href="https://api-rrd.madavi.de:3000/grafana/d/GUaL5aZMz/pm-sensors?orgId=1&theme=light&var-chipID=esp8266-2960722&from=now-6h&to=now&timezone=browser&var-type=BME280&var-query0=sensors">storici</a></b>
+            <br>
+            <br>
+            Scopri cosa prevede la <b><a class="urlclass" href="https://www.arpalombardia.it/temi-ambientali/aria/inquinanti/inquinanti-in-sintesi/">normativa</a></b> <br> sulla qualità dell'aria
+            <br>
+            <br>
+            Scopri il progetto <b><a class="urlclass" href="https://sensor.community/it/">Sensor.Community</a></b>
+        </p>
+        
+    </div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
