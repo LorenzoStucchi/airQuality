@@ -33,3 +33,28 @@ body {
 .urlclass {
     color: black;
 }
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .value {
+        font-size: 32px;
+    }
+
+    .label {
+        font-size: 18px;
+    }
+
+    .timestamp {
+        font-size: 14px;
+    }
+}
