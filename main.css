@@ -17,7 +17,10 @@ body {
     transition: color 0.3s ease;
 }
 .good {
-    color: black;
+    color: rgb(1, 70, 0);
+}
+.soso {
+    color: rgb(168, 75, 0);
 }
 .bad {
     color: rgb(204, 0, 0);
