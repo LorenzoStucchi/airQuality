@@ -17,7 +17,6 @@ async function loadData() {
         const latest = data[0];
 
         if (lastTimestamp && latest.timestamp !== lastTimestamp) {
-            console.log("Nuovo dato rilevato, ricarico pagina...");
             window.location.reload();
             return;
         }
@@ -46,13 +45,21 @@ async function loadData() {
         if (p1Value > 50) {
             p1Element.classList.add("bad");
         } else {
-            p1Element.classList.add("good");
+            if (p1Value > 40) {
+                p1Element.classList.add("soso");
+            } else {
+                p1Element.classList.add("good");
+            }
         }
 
         if (p2Value > 25) {
             p2Element.classList.add("bad");
         } else {
-            p2Element.classList.add("good");
+            if (p1Value > 20) {
+                p2Element.classList.add("soso");
+            } else {
+                p2Element.classList.add("good");
+            }
         }
 
         const utcDate = new Date(latest.timestamp.replace(" ", "T") + "Z");
@@ -74,6 +81,36 @@ async function loadData() {
         console.error("Errore nel caricamento dati:", error);
     }
 }
+
+fetch('data.json')
+  .then(response => response.json())
+  .then(data => {
+
+    const p1Value = data.avgP1;
+    const p2Value = data.avgP2;
+
+    const p1Element = document.getElementById('p1_i');
+    const p2Element = document.getElementById('p2_i');
+
+    p1Element.innerHTML = `${p1Value.toFixed(2)}`;
+    p2Element.innerHTML = `${p2Value.toFixed(2)}`;
+
+    if (p1Value > 50) {
+        p1Element.classList.add("bad");
+    } else if (p1Value > 40) {
+        p1Element.classList.add("soso");
+    } else {
+        p1Element.classList.add("good");
+    }
+
+    if (p2Value > 25) {
+        p2Element.classList.add("bad");
+    } else if (p2Value > 20) {
+        p2Element.classList.add("soso");
+    } else {
+        p2Element.classList.add("good");
+    }
+  })
 
 loadData();
 

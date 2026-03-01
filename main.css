@@ -17,13 +17,13 @@ body {
     transition: color 0.3s ease;
 }
 .good {
-    color: rgb(1, 70, 0);
+    color: rgb(2, 127, 0);
 }
 .soso {
-    color: rgb(168, 75, 0);
+    color: rgb(211, 95, 0);
 }
 .bad {
-    color: rgb(204, 0, 0);
+    color: rgb(220, 0, 0);
 }
 .label {
     font-size: 20px;
