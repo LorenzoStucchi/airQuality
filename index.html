@@ -10,6 +10,7 @@
 
     <div class="card">
         <h1>Qualità dell'aria a Sulbiate</h1>
+        <h3>Dati live:</h3>
         <div>
             <div class="label">PM 10 [µg/m³]</div>
             <div class="value" id="p1">--</div>
@@ -19,26 +20,34 @@
             <div class="label">PM 2.5 [µg/m³]</div>
             <div class="value" id="p2">--</div>
         </div>
-        <div class="timestamp" id="timestamp"></div>
+        <div class="lowmargin timestamp" id="timestamp"></div>
         <h3>Media dei dati di ieri:</h3>
         <div>
-            <p class="timestamp">PM 10 [µg/m³]</p>
-            <p id="p1_i">--</p>
-            <p class="timestamp">PM 2.5 [µg/m³]</p>
-            <p id="p2_i">--</p>
+            <p class="lowmargin timestamp">PM 10 [µg/m³]</p>
+            <p class="lowmargin" id="p1_i">--</p>
+            <p class="lowmargin timestamp">PM 2.5 [µg/m³]</p>
+            <p class="lowmargin" id="p2_i">--</p>
         </div>
+        <h3>Giorni nell'anno sopra valore massimo consentito:</h3>
+        <div>
+            <p class="lowmargin timestamp">PM 10 giorni sopra 50 µg/m³</p>
+            <p class="lowmargin" id="p1_d">--</p>
+            <p></p>
+            <p class="lowmargin timestamp">PM 2.5 giorni sopra 25 µg/m³</p>
+            <p class="lowmargin" id="p2_d">--</p>
+        </div>
+        <h3>Scopri di più:</h3>
         <p>
             Scopri i dati <b><a class="urlclass" href="https://api-rrd.madavi.de:3000/grafana/d/GUaL5aZMz/pm-sensors?orgId=1&theme=light&var-chipID=esp8266-2960722&from=now-6h&to=now&timezone=browser&var-type=BME280&var-query0=sensors">storici</a></b>
             <br>
             <br>
-            Scopri cosa prevede la <b><a class="urlclass" href="https://www.arpalombardia.it/temi-ambientali/aria/inquinanti/inquinanti-in-sintesi/">normativa</a></b> <br> sulla qualità dell'aria
+            Scopri cosa prevede la <b><a class="urlclass" href="https://www.arpalombardia.it/temi-ambientali/aria/inquinanti/inquinanti-in-sintesi/">normativa</a></b> sulla qualità dell'aria
             <br>
             <br>
             Scopri il progetto <b><a class="urlclass" href="https://sensor.community/it/">Sensor.Community</a></b>
         </p>
         
     </div>
-
 
 <script src="script.js"></script>
 

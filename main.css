@@ -37,6 +37,11 @@ body {
     color: black;
 }
 
+.lowmargin {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 @media (max-width: 600px) {
 
     body {
