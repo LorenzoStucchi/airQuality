@@ -1,17 +1,19 @@
 import os
 import csv
+import glob
 from datetime import datetime
 
-INPUT_FOLDER = "2026"
-OUTPUT_FILE = "medie_giornaliere.csv"
+YEAR = '2022'
+INPUT_FOLDER = "mean_calculator/sensordata/" + YEAR
+OUTPUT_FILE =  YEAR + "_medie_giornaliere.csv"
 
 results = []
 
-for filename in sorted(os.listdir(INPUT_FOLDER)):
-    if not filename.endswith(".csv"):
-        continue
+print(sorted(glob.glob(os.path.join(INPUT_FOLDER, '**', '*.csv'), recursive=True)))
 
-    filepath = os.path.join(INPUT_FOLDER, filename)
+for filepath in sorted(glob.glob(os.path.join(INPUT_FOLDER, '**', '*.csv'), recursive=True)):
+    if not filepath.endswith(".csv"):
+        continue
 
     sum_p1, sum_p2, count = 0, 0, 0
 
@@ -28,8 +30,6 @@ for filename in sorted(os.listdir(INPUT_FOLDER)):
                 continue
 
     if count > 0:
-        # Estrai la data dalla prima colonna del nome file o dal contenuto
-        # Usa la data dal primo valore Time del file
         date_str = None
         with open(filepath, newline='', encoding='utf-8') as f:
             reader = csv.DictReader(f, delimiter=';')

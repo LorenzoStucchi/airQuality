@@ -96,15 +96,38 @@ fetch(`${year}/medie_giornaliere.csv`)
         let p1_d = 0;
         let p2_d = 0;
         let days = lines.length - 1;
+        let sumP1 = 0;
+        let validP1 = 0;
         for (let i = 1; i < lines.length; i++) {
             const cols = lines[i].split(',');
             const avgP1 = parseFloat(cols[p1Index]);
             const avgP2 = parseFloat(cols[p2Index]);
             if (!isNaN(avgP1) && avgP1 > 50) p1_d++;
             if (!isNaN(avgP2) && avgP2 > 25) p2_d++;
+            if (!isNaN(avgP1)) { sumP1 += avgP1; validP1++; }
         }
-        document.getElementById('p1_d').textContent = `${p1_d} su ${days} giorni (${(p1_d/days*100).toFixed(0)}%)`;
-        document.getElementById('p2_d').textContent = `${p2_d} su ${days} giorni (${(p2_d/days*100).toFixed(0)}%)`;
+        const meanP1 = validP1 ? (sumP1 / validP1).toFixed(2) : 'N/A';
+
+        const p1Element_d = document.getElementById('p1_d');
+        p1Element_d.textContent = `${p1_d} su ${days} giorni (${(p1_d/days*100).toFixed(0)}%)`;
+        if (p1_d > 35) {
+            p1Element_d.classList.add("bad");
+        } else if (p1_d > 30) {
+            p1Element_d.classList.add("soso");
+        } else {
+            p1Element_d.classList.add("good");
+        }
+
+        const p1Element_y = document.getElementById('p1_y');
+        p1Element_y.textContent = meanP1;
+        if (meanP1 > 24) {
+            p1Element_y.classList.add("bad");
+        } else if (meanP1 > 20) {
+            p1Element_y.classList.add("soso");
+        } else {
+            p1Element_y.classList.add("good");
+        }
+        // document.getElementById('p2_d').textContent = `${p2_d} su ${days} giorni (${(p2_d/days*100).toFixed(0)}%)`;
     })
     .catch(error => console.error("Errore nel caricamento medie_giornaliere.csv:", error));
 
