@@ -23,8 +23,8 @@ async function loadData() {
         const p2Element = document.getElementById("p2");
         p1Element.textContent = p1Value;
         p2Element.textContent = p2Value;
-        p1Element.classList.remove("good", "bad");
-        p2Element.classList.remove("good", "bad");
+        p1Element.classList.remove("good", "soso", "bad");
+        p2Element.classList.remove("good", "soso", "bad");
         if (p1Value > 50) {
             p1Element.classList.add("bad");
         } else {
@@ -37,7 +37,7 @@ async function loadData() {
         if (p2Value > 25) {
             p2Element.classList.add("bad");
         } else {
-            if (p1Value > 20) {
+            if (p2Value > 20) {
                 p2Element.classList.add("soso");
             } else {
                 p2Element.classList.add("good");
@@ -83,11 +83,18 @@ fetch('data.json')
         } else {
             p2Element.classList.add("good");
         }
-    });
-
-const year = new Date().getFullYear();
-fetch(`${year}/medie_giornaliere.csv`)
-    .then(response => response.text())
+        // anno dell'ultima media disponibile (evita il file mancante nei primi giorni di gennaio)
+        return data.date.slice(0, 4);
+    })
+    .catch(error => {
+        console.error("Errore nel caricamento data.json:", error);
+        return String(new Date().getFullYear());
+    })
+    .then(year => fetch(`${year}/medie_giornaliere.csv`))
+    .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.text();
+    })
     .then(text => {
         const lines = text.trim().split('\n');
         const headers = lines[0].split(',');
@@ -95,7 +102,7 @@ fetch(`${year}/medie_giornaliere.csv`)
         const p2Index = headers.indexOf('avg_SDS_P2');
         let p1_d = 0;
         let p2_d = 0;
-        let days = lines.length - 1;
+        let days = 0;
         let sumP1 = 0;
         let validP1 = 0;
         for (let i = 1; i < lines.length; i++) {
@@ -104,12 +111,12 @@ fetch(`${year}/medie_giornaliere.csv`)
             const avgP2 = parseFloat(cols[p2Index]);
             if (!isNaN(avgP1) && avgP1 > 50) p1_d++;
             if (!isNaN(avgP2) && avgP2 > 25) p2_d++;
-            if (!isNaN(avgP1)) { sumP1 += avgP1; validP1++; }
+            if (!isNaN(avgP1)) { sumP1 += avgP1; validP1++; days++; }
         }
-        const meanP1 = validP1 ? (sumP1 / validP1).toFixed(2) : 'N/A';
+        const meanP1 = validP1 ? sumP1 / validP1 : NaN;
 
         const p1Element_d = document.getElementById('p1_d');
-        p1Element_d.textContent = `${p1_d} su ${days} giorni (${(p1_d/days*100).toFixed(0)}%)`;
+        p1Element_d.textContent = days ? `${p1_d} su ${days} giorni (${(p1_d/days*100).toFixed(0)}%)` : '--';
         if (p1_d > 35) {
             p1Element_d.classList.add("bad");
         } else if (p1_d > 30) {
@@ -119,7 +126,7 @@ fetch(`${year}/medie_giornaliere.csv`)
         }
 
         const p1Element_y = document.getElementById('p1_y');
-        p1Element_y.textContent = meanP1;
+        p1Element_y.textContent = validP1 ? meanP1.toFixed(2) : 'N/A';
         if (meanP1 > 24) {
             p1Element_y.classList.add("bad");
         } else if (meanP1 > 20) {
